@@ -32,6 +32,6 @@ num = int(num)
 if num < 1 or num > 30:
 	print "0부터 30까지 번호를 입력하세요"
 elif num > 0 and num < 31:
-	print list_title
-	print list_link
-	webbrowser.open(list_link)
+	print list_title[num-1]
+	print list_link[num-1]
+	webbrowser.open(list_link[num-1])
