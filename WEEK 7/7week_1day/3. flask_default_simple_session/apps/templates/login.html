@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Session</title>
+</head>
+<body>
+	{% if username %}
+		{{ username }}님 안녕하세요! <button>
+		<a href = "{{url_for('logout')}}">로그아웃</a></button>
+	{% endif %}
+</body>
+</html>
