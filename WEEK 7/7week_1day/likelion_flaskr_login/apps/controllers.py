@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from kstime import kstime
-from flask import render_template, request, redirect, url_for, flash, g, session
+from flask import render_template, request, redirect, url_for, flash, g, session, jsonify
 from werkzeug.security import generate_password_hash, \
 	 check_password_hash
 from sqlalchemy import desc
@@ -110,6 +110,41 @@ def article_like(id):
 	db.session.commit()
 
 	return redirect(url_for('article_detail', id=id))
+
+@app.route('/article/detail_like', methods=['GET'])
+def article_like_ajax():
+	id = request.args.get('id', 0, type=int)
+
+	article = Article.query.get(id)
+	article.like += 1
+
+	db.session.commit()
+
+	return jsonify(id=id)
+
+@app.route('/article/comment_like', methods=['GET'])
+def comment_like_ajax():
+	id = request.args.get('id', 0, type=int)
+	comment = Comment.query.get(id)
+	article_id = comment.article_id
+	comment.like += 1
+
+	db.session.commit()
+
+	return jsonify(id=article_id)
+
+@app.route('/like', methods=['GET'])
+def article_like_home():
+    id = request.args.get('id', 0, type=int)
+
+    article = Article.query.get(id)
+    article.like += 1
+
+    db.session.commit()
+
+    return jsonify(id=id)
+
+
 
 
 #
